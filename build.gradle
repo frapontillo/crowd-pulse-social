@@ -17,6 +17,7 @@
 plugins {
     id 'java'
     id 'maven'
+    id "com.github.frapontillo.switchdependencies" version "0.0.1-alpha.0"
 }
 
 sourceCompatibility = 1.8
@@ -32,7 +33,16 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.frapontillo:crowd-pulse-data-java:0.0.1'
-    // compile group: 'joda-time', name: 'joda-time', version: '2.5'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile 'junit:junit:4.11'
+}
+
+switchDependencies {
+    develop {
+        truthy = {
+            compile project(':crowd-pulse-data-java')
+        }
+        falsy = {
+            compile 'com.github.frapontillo:crowd-pulse-data-java:0.0.1'
+        }
+    }
 }
